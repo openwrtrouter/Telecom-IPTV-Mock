@@ -88,6 +88,8 @@ def stb_login(
         config.salt,
     )
 
+    print(f"提取到EncryptToken {response.text}")
+    
     print("第三步，进行授权认证")
 
     response = session.post(
