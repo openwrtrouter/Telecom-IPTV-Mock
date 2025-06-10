@@ -42,15 +42,15 @@ jobs:
       with:
         context: .
         file: ./Dockerfile
-        platforms: linux/amd64,linux/arm64,linux/arm/v7
+        platforms: linux/amd64
         push: true
         provenance: false
         tags: |
-          vergilgao/${{ secrets.DOCKER_USERNAME }}:${{ env.MAJOR_VERSION }}
-          vergilgao/${{ secrets.DOCKER_USERNAME }}:${{ env.MINOR_VERSION }}
-          vergilgao/${{ secrets.DOCKER_USERNAME }}:${{ env.BUILD_VERSION }}
-          vergilgao/${{ secrets.DOCKER_USERNAME }}:${{ env.TAG_VERSION }}
-          vergilgao/${{ secrets.DOCKER_USERNAME }}:latest
+          docker.io/vergilgao/${{ secrets.DOCKER_USERNAME }}:${{ env.MAJOR_VERSION }}
+          docker.io/vergilgao/${{ secrets.DOCKER_USERNAME }}:${{ env.MINOR_VERSION }}
+          docker.io/vergilgao/${{ secrets.DOCKER_USERNAME }}:${{ env.BUILD_VERSION }}
+          docker.io/vergilgao/${{ secrets.DOCKER_USERNAME }}:${{ env.TAG_VERSION }}
+          docker.io/vergilgao/${{ secrets.DOCKER_USERNAME }}:latest
 
 
     - name: Image digest
