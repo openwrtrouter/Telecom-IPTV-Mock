@@ -120,6 +120,8 @@ def stb_login(
         headers=headers,
     )
 
+    print(f"第三步结果: {response.text}")
+    
     if not response.ok:
         print("授权认证失败")
         return False
