@@ -46,11 +46,11 @@ jobs:
         push: true
         provenance: false
         tags: |
-          docker.io/vergilgao/${{ secrets.DOCKER_USERNAME }}:${{ env.MAJOR_VERSION }}
-          docker.io/vergilgao/${{ secrets.DOCKER_USERNAME }}:${{ env.MINOR_VERSION }}
-          docker.io/vergilgao/${{ secrets.DOCKER_USERNAME }}:${{ env.BUILD_VERSION }}
-          docker.io/vergilgao/${{ secrets.DOCKER_USERNAME }}:${{ env.TAG_VERSION }}
-          docker.io/vergilgao/${{ secrets.DOCKER_USERNAME }}:latest
+          docker.io/${{ secrets.DOCKER_USERNAME }}/iptv:${{ env.MAJOR_VERSION }}
+          docker.io/${{ secrets.DOCKER_USERNAME }}/iptv:${{ env.MINOR_VERSION }}
+          docker.io/${{ secrets.DOCKER_USERNAME }}/iptv:${{ env.BUILD_VERSION }}
+          docker.io/${{ secrets.DOCKER_USERNAME }}/iptv:${{ env.TAG_VERSION }}
+          docker.io/${{ secrets.DOCKER_USERNAME }}/iptv:latest
 
 
     - name: Image digest
