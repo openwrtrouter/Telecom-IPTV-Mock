@@ -1,6 +1,7 @@
-from Crypto.Cipher import DES
-from hashlib import md5, sha256
-
+import random
+import hashlib
+from Crypto.Cipher import DES3,DES
+from Crypto.Util.Padding import pad
 def pretty_xml(element, indent, newline, level=0):
     # 判断element是否有子元素
     if element:
@@ -27,7 +28,29 @@ def __pkcs7(s: str) -> str:
     return s + (bs - len(s) % bs) * chr(bs - len(s) % bs)
 
 
+
 def getAuthenticator(userid: str, password: str, stbid: str, mac: str, encry_token: str, salt: str) -> str:
+    # 生成8位随机数
+    random_num = f"{abs(random.getrandbits(64)) % 10000000:08d}"
+    
+    # 构建要加密的字符串
+    to_encrypt = f"{random_num}${encry_token}${userid}${stbid}$10.10.1.1${mac}$${salt}"
+    
+    # 生成24位MD5密钥
+    md5 = hashlib.md5(password.encode()).hexdigest()
+    key = md5[:24].encode()
+    
+    # 3DES加密 (使用ECB模式，与Java的Security.Encrypt3DES保持一致)
+    cipher = DES3.new(key, DES3.MODE_ECB)
+    padded_data = pad(to_encrypt.encode(), DES3.block_size)
+    encrypted = cipher.encrypt(padded_data)
+    
+    # 返回十六进制字符串
+    return encrypted.hex()
+
+
+
+def getAuthenticator2(userid: str, password: str, stbid: str, mac: str, encry_token: str, salt: str) -> str:
     salty: bytes = (password + salt).encode('ascii')
     payload: bytes = __pkcs7(
         f"99999${encry_token}${userid}${stbid}$127.0.0.1${mac}$$CTC").encode('ascii')
