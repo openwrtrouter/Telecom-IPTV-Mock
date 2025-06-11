@@ -38,7 +38,7 @@ def getAuthenticator(userid: str, password: str, stbid: str, mac: str, encry_tok
     
     # 生成24位MD5密钥
     md5 = hashlib.md5(password.encode()).hexdigest()
-    key = md5[:24].encode()
+    key = md5[:24].upper().encode()  # Converted to uppercase
     
     # 3DES加密 (使用ECB模式，与Java的Security.Encrypt3DES保持一致)
     cipher = DES3.new(key, DES3.MODE_ECB)
@@ -46,7 +46,7 @@ def getAuthenticator(userid: str, password: str, stbid: str, mac: str, encry_tok
     encrypted = cipher.encrypt(padded_data)
     
     # 返回十六进制字符串
-    return encrypted.hex()
+    return encrypted.hex().upper()  # Converted to uppercase
 
 
 
